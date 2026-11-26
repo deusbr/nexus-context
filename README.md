@@ -1,51 +1,53 @@
-# NEXUS Contexto (`nexus-context`)
+# NEXUS Context (`nexus-context`)
+
+[![CI](https://github.com/deusbr/nexus-context/actions/workflows/ci.yml/badge.svg)](https://github.com/deusbr/nexus-context/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Node.js >= 24](https://img.shields.io/badge/node-%3E%3D24.0.0-339933?logo=node.js&logoColor=white)](package.json)
 
 Zero-dependency local context & evidence layer in **Node.js 24+ (`node:sqlite` + native FTS5)** for verifiable token reduction, deterministic evidence selection with expandable originals, and project-scoped versioned agent memory via MCP (`stdio`) and CLI.
 
-Camada local zero-dependência em **Node.js 24+ (`node:sqlite` + FTS5 nativo)** para economia verificável de tokens, seleção determinística de evidências com originais recuperáveis e memória versionada por projeto para agentes de IA.
+## What It Solves
 
-## O que resolve
+1. **Deterministic reduction with provenance (`select` / `expand`)**: Filters bulky logs (including numeric HTTP status codes such as `503` without relying on the word `ERROR`), compacts and projects JSON while preserving critical values, counts, and pagination metadata, slices code by line range, and stores recoverable originals (`ev_...`) with TTL, per-project LRU quotas, source-change detection (`sourceModified`), and prior secret redaction.
+2. **Versioned memory and compact resume (`memory` / `checkpoint`)**: Strictly isolates records by `projectId`, tracks active decisions, rejected approaches with rationale, optimistic concurrency control (`expectedRevision`), idempotency (`eventId`), explicit historical queries, transactional forgetting across tables + FTS5 + blobs, and a resume card capped at ~500 tokens with branch/HEAD drift warnings.
+3. **Ultra-lean MCP server (`stdio` JSON-RPC 2.0)**: Exposes **3 tools** (`nexus_evidence`, `nexus_memory`, `nexus_record`) to minimize catalog overhead, protects prompt caching with on-demand retrieval, and requires human approval (`candidate` -> `active`) by default.
+4. **Honest metrics**: Separates filtered bytes, local token estimates, re-queries, and `p50/p95` latency, explicitly noting that actual billing cost depends on official provider telemetry.
 
-1. **Redução determinística com proveniência (`select` / `expand`)**: filtra logs volumosos (incluindo códigos numéricos como `503` sem depender da palavra `ERROR`), compacta e projeta JSON preservando valores críticos, contagens e paginação, recorta código por faixa de linhas e guarda o original recuperável (`ev_...`) com TTL, cota LRU por projeto, detecção de alteração de fonte (`sourceModified`) e redação prévia de segredos.
-2. **Memória versionada e retomada compacta (`memory` / `checkpoint`)**: isola dados estritamente por `projectId`, mantém decisões vigentes, abordagens rejeitadas com justificativa, controle de concorrência otimista (`expectedRevision`), idempotência (`eventId`), consultas históricas explícitas, esquecimento transacional completo (tabelas + FTS5 + blobs) e cartão de retomada limitado a ~500 tokens com aviso de mudança de branch/head.
-3. **Servidor MCP ultra-enxuto (`stdio` JSON-RPC 2.0)**: expõe exatamente **3 ferramentas** (`nexus_evidence`, `nexus_memory`, `nexus_record`) para minimizar overhead de catálogo, protege o cache de prompt com recuperação sob demanda e exige aprovação humana (`candidate` -> `active`) por padrão.
-4. **Métricas honestas**: separa bytes filtrados, estimativa local de tokens, reconsultas e latência `p50/p95`, sinalizando explicitamente que custo financeiro real depende da telemetria oficial do provedor.
+## Prerequisites & Quick Start
 
-## Pré-requisitos e uso rápido
-
-Requer **Node.js >= 24.0.0** (para `node:sqlite` e FTS5 nativo).
+Requires **Node.js >= 24.0.0** (for built-in `node:sqlite` and FTS5 support).
 
 ```powershell
-# Filtrar log procurando HTTP 503 com 3 linhas de contexto
-node bin/nexus-context.js select --project meu-app --file .\app.log --status 503 --context-lines 3 --max-tokens 300
+# Filter logs for HTTP 503 with 3 context lines
+node bin/nexus-context.js select --project my-app --file .\app.log --status 503 --context-lines 3 --max-tokens 300
 
-# Expandir o original de uma evidência retornada
-node bin/nexus-context.js expand ev_<id> --project meu-app --start-line 120 --end-line 150
+# Expand the original content of a returned evidence item
+node bin/nexus-context.js expand ev_<id> --project my-app --start-line 120 --end-line 150
 
-# Registrar decisão e consultar memória vigente
-node bin/nexus-context.js memory record --project meu-app --kind decision --title "Usar SQLite FTS5" --content "Busca lexical local sem serviço externo" --source "ADR-004"
-node bin/nexus-context.js memory query --project meu-app --query "FTS5"
+# Record a decision and query active project memory
+node bin/nexus-context.js memory record --project my-app --kind decision --title "Use SQLite FTS5" --content "Local lexical search without external services" --source "ADR-004"
+node bin/nexus-context.js memory query --project my-app --query "FTS5"
 
-# Salvar e retomar checkpoint de tarefa (<= 500 tokens estimados)
-node bin/nexus-context.js checkpoint save --project meu-app --task t-1 --objective "Corrigir 503" --pending "Validar retry"
-node bin/nexus-context.js checkpoint resume --project meu-app --task t-1
+# Save and resume a task checkpoint (<= 500 estimated tokens)
+node bin/nexus-context.js checkpoint save --project my-app --task t-1 --objective "Fix 503" --pending "Validate retry"
+node bin/nexus-context.js checkpoint resume --project my-app --task t-1
 
-# Gerar configuração MCP pronta para o cliente (usa node direto + bin/nexus-context-mcp.js, sem cmd.exe)
-node bin/nexus-context.js install-config openbot --project meu-app
-node bin/nexus-context.js install-config codex --project meu-app
-node bin/nexus-context.js install-config claude-code --project meu-app
-node bin/nexus-context.js install-config gemini-cli --project meu-app
+# Generate ready-to-use MCP client config (invokes node directly with bin/nexus-context-mcp.js, no cmd.exe)
+node bin/nexus-context.js install-config openbot --project my-app
+node bin/nexus-context.js install-config codex --project my-app
+node bin/nexus-context.js install-config claude-code --project my-app
+node bin/nexus-context.js install-config gemini-cli --project my-app
 ```
 
-> **Segurança no Windows:** Os arquivos gerados por `install-config` invocam `node.exe` diretamente com `bin/nexus-context-mcp.js` (sem `cmd.exe` ou `.cmd`), mitigando CVE-2024-24576, injeção de `&` e expansão de `%VAR%`. No CLI, ao passar conteúdo arbitrário/não confiável, prefira `stdin` ou invocação direta via `node bin/nexus-context.js`.
+> **Windows Security:** Configs generated by `install-config` invoke `node.exe` directly with `bin/nexus-context-mcp.js` (without `cmd.exe` or `.cmd` wrappers), mitigating CVE-2024-24576, `&` command injection, and `%VAR%` expansion. When passing untrusted or arbitrary content to the CLI, prefer `stdin` or direct invocation via `node bin/nexus-context.js`.
 
-## Documentação e contrato
+## Documentation & Contract
 
-- Contrato técnico: [CONTRACT.md](./CONTRACT.md)
-- Guia de integração (OpenBot, Codex CLI, Claude Code, Gemini CLI): [docs/INTEGRATION.md](./docs/INTEGRATION.md)
-- Relatórios verificados: [Benchmark v1](reports/benchmark-v1.md) · [Validação de Núcleo](reports/core-engine-validation.md)
+- Technical contract: [CONTRACT.md](./CONTRACT.md)
+- Integration guide (OpenBot, Codex CLI, Claude Code, Gemini CLI): [docs/INTEGRATION.md](./docs/INTEGRATION.md)
+- Benchmark & validation reports: [Benchmark v1](reports/benchmark-v1.md) · [Core Engine Validation](reports/core-engine-validation.md)
 
-## Testes e Benchmark
+## Tests & Benchmarks
 
 ```powershell
 npm run check
@@ -54,6 +56,6 @@ node benchmarks/validate-report.js
 node benchmarks/run-benchmark.js
 ```
 
-## Licença
+## License
 
 [MIT](./LICENSE) — Emerson Almeida (`@deusbr`).
