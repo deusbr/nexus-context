@@ -1,0 +1,9 @@
+node_modules/
+.nexus-context/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+coverage/
+tmp/
+.env
+*.log

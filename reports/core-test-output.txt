@@ -1,0 +1,48 @@
+﻿✔ token estimator handles UTF-8/PT-BR/JSON/code deterministically (2.1144ms)
+✔ redacts secret families including JSON/env/URL without destroying JSON (0.9869ms)
+✔ native schema WAL and FTS5 use dedicated database (78.5391ms)
+✔ rare numeric 503 without ERROR is preserved with exact context lines (125.8936ms)
+✔ JSON 40k+ projection retains requested values, IDs, timestamp, pagination and counts (113.5521ms)
+✔ JSON query/statusCodes/equality and nested arrays work without executing predicates (55.6265ms)
+✔ pass-through exact small content and no original blob (49.7766ms)
+✔ redaction precedes persistence and metrics and original expansion (108.4259ms)
+✔ regex and status filters plus repetition grouping (54.0582ms)
+✔ code/text exact ranges and bounded valid JSON partial samples (53.0235ms)
+✔ path traversal and similar-prefix roots blocked; unicode file allowed (129.747ms)
+✔ Windows junction/symlink outside authorized root denied (75.1486ms)
+✔ expand preserves source snapshot and detects hash change with restored mtime (61.9799ms)
+✔ EXPIRED at TTL zero and no access through a foreign project (71.5834ms)
+✔ LRU eviction uses access order within exact project only (112.6675ms)
+✔ oversize original cannot exceed quota and storeOriginal false honored (47.929ms)
+✔ decision versioning optimistic conflict and event idempotence transactional (83.4367ms)
+✔ failed insertion rolls back previous version and FTS atomically (79.5052ms)
+✔ candidate approval and revocation control current/history query (55.4868ms)
+✔ strict project isolation for all decision mutations and same event IDs (78.0308ms)
+✔ FTS5 accent normalization and exact punctuation/IDs fallback (79.9643ms)
+✔ query budgets, kind filter and explicit abstention (50.6988ms)
+✔ memory sanitizes all persisted fields including checkpoint/revoke (79.9672ms)
+✔ checkpoint optimistic concurrency and idempotence survives later revisions (51.2873ms)
+✔ resume <=500 tokens with live decisions, rejected rationale and stale branch/head (58.8939ms)
+✔ oversized checkpoint card stays within budget and signals omissions (716ms)
+✔ missing/foreign checkpoints abstain; task IDs and events exact by project (75.6454ms)
+✔ forget entry transaction removes exact FTS, associated blob and checkpoints (74.8311ms)
+✔ forget task/evidence/project cleans all references without app-v10 crossover (124.4182ms)
+✔ Markdown export includes frontmatter current decisions reasons checkpoint and sources (54.0918ms)
+✔ metrics aggregate all operations honest local-only costs and exact task scope (83.6463ms)
+✔ latency p50 p95 max use nearest-rank with known fixture (94.4438ms)
+✔ host scope is immutable; untrusted operation input cannot override project/roots (76.2105ms)
+✔ validation does not leave records; stdout stays clean (151.3483ms)
+✔ rejects another application database without changing its schema or journal (54.5154ms)
+✔ canonical allowed root cannot be replaced by an outside junction (71.9103ms)
+✔ JSON expand query recovers a rare value near the end of a minified line (1780.2544ms)
+✔ slash-prefixed lexical paths remain searchable as text (48.5785ms)
+✔ redaction preserves token counts while removing actual token credentials (0.2115ms)
+✔ resume follows a checkpoint-pinned decision to its latest active version (50.263ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5361.9923

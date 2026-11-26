@@ -1,0 +1,9 @@
+﻿PASS --check src\core\db.js
+PASS --check src\core\evidence.js
+PASS --check src\core\index.js
+PASS --check src\core\memory.js
+PASS --check src\core\metrics.js
+PASS --check src\core\security.js
+PASS --check src\core\tokenizer.js
+PASS --check tests\core.test.js
+PASS --check reports\calibrate-tokenizer.mjs

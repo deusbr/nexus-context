@@ -1,0 +1,39 @@
+{
+  "name": "nexus-context",
+  "version": "1.0.0",
+  "description": "Camada local de economia de tokens, seleção determinística de evidências recuperáveis e memória versionada (SQLite FTS5) para agentes de IA via MCP e CLI.",
+  "type": "module",
+  "main": "./src/core/index.js",
+  "bin": {
+    "nexus-context": "./bin/nexus-context.js",
+    "nexus-context-mcp": "./bin/nexus-context-mcp.js"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "check": "node --check src/core/index.js && node --check src/mcp/server.js && node --check src/cli/index.js && node --check bin/nexus-context.js && node --check bin/nexus-context-mcp.js",
+    "test": "node --test tests/*.test.js",
+    "test:core": "node --test tests/core.test.js",
+    "test:mcp": "node --test tests/mcp-cli.test.js",
+    "benchmark": "node benchmarks/run-benchmark.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "token-optimization",
+    "context-management",
+    "agent-memory",
+    "sqlite-fts5",
+    "windows"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deusbr/nexus-context.git"
+  },
+  "homepage": "https://github.com/deusbr/nexus-context#readme",
+  "bugs": {
+    "url": "https://github.com/deusbr/nexus-context/issues"
+  },
+  "license": "MIT"
+}
