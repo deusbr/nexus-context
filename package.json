@@ -1,7 +1,7 @@
 {
   "name": "nexus-context",
   "version": "1.0.0",
-  "description": "Camada local de economia de tokens, seleção determinística de evidências recuperáveis e memória versionada (SQLite FTS5) para agentes de IA via MCP e CLI.",
+  "description": "Zero-dependency local context & evidence layer in Node.js 24+ (SQLite FTS5) for verifiable token reduction and project-scoped agent memory via MCP stdio and CLI.",
   "type": "module",
   "main": "./src/core/index.js",
   "bin": {
