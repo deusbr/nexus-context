@@ -1,6 +1,10 @@
-# Keep benchmark source hashes stable across Windows Git checkouts.
+# Keep source and benchmark hashes stable across Windows, macOS, and Linux.
+*.js text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+src/** text eol=lf
+bin/** text eol=lf
+tests/** text eol=lf
 benchmarks/** text eol=lf
-reports/benchmark-v1.json text eol=lf
-reports/benchmark-v1.md text eol=lf
-reports/benchmark-validation.md text eol=lf
-reports/benchmark-regression.txt text eol=lf
+reports/* text eol=lf

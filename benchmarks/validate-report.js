@@ -9,6 +9,7 @@ import { buildCases } from './fixtures/cases.js';
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const report = JSON.parse(fs.readFileSync(path.join(root, 'reports/benchmark-v1.json'), 'utf8'));
 const digest = data => createHash('sha256').update(data).digest('hex');
+const digestTextLf = text => digest(Buffer.from(text.replace(/\r\n/g, '\n'), 'utf8'));
 const cases = buildCases();
 assert.equal(report.caseCount, cases.length);
 assert.ok(cases.length >= 32);
@@ -16,7 +17,7 @@ assert.equal(report.samples.length, cases.length * 3 * report.repetitions);
 assert.equal(report.providerCostUsd, null);
 assert.equal(report.providerUsageAvailable, false);
 for (const [file, expected] of Object.entries(report.sourceSha256)) {
-  assert.equal(digest(fs.readFileSync(path.join(root, file))), expected, `source changed: ${file}`);
+  assert.equal(digestTextLf(fs.readFileSync(path.join(root, file), 'utf8')), expected, `source changed: ${file}`);
 }
 assert.deepEqual(report.comparatorSha256Before, report.comparatorSha256After);
 assert.equal(report.catalog.tools, 3);

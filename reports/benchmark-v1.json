@@ -282,15 +282,15 @@
     ]
   },
   "sourceSha256": {
-    "src/core/index.js": "14ca5e727bd1c20090b84e727663c92a7b574650414dd819c180e048c5e94e12",
+    "src/core/index.js": "35fae7cd86184b90dedb8c3f808579ba7b06f2e0e0a85e782cf3b05fda5bcadc",
     "src/core/tokenizer.js": "00e5981dff8fe96f4aa7d7b6d70e7cfe4cd74e14c6b6a5df4c6081417eb0ed45",
     "src/core/security.js": "e646a79fac31588bdb59f2262d74942971f9528845611c11b8fbf9337b831a15",
     "src/core/evidence.js": "2cff03c7fa5e675b49ff6c3e407add1c0b6f35adeccb91a6aa5711910a8ee2fa",
-    "src/core/memory.js": "bc5db995c03dcdc16a3f54c46b2e114eee1cb9ae6cfcc99a629d148f22734e11",
-    "src/core/db.js": "f35ad8490e640d6e48e3c88ce66a3ae5e3ad1000fd04825a5f6337be79b6a40d",
-    "src/core/metrics.js": "d9212e341034e0d54c889ba04aaa865c000d7cd71576698472d724ea7eb3a3fd",
-    "src/mcp/server.js": "a1a3547a471800ca6f3c7fc903df19f7bedbce91cef44194fe3e42e54c1c21da",
-    "src/cli/index.js": "8f8687eb7bd3d377fc94b9dbb6d86909485c5e934a4403df180a718c5418b4dd",
+    "src/core/memory.js": "245dcf27a3e0521b569139fa3cfb588c9d54e4de5dab8d6078454b68d693a3b0",
+    "src/core/db.js": "0abf0f563bcfe9efe3d2346ac985b48a84f41ce52604b2c5e010ccfa39445dd2",
+    "src/core/metrics.js": "6493a5d8a65977b67d4c43756814a5c47280458ca5950563b95ecab88bb7ecbf",
+    "src/mcp/server.js": "7b1733c205171694c154a4d7ffcd1ab4e84603fdc78af788cbdb20c6ad73eb56",
+    "src/cli/index.js": "84bca690ef30e0367d4f1bd048c7786f172f6f240856819c7377feee75bd69fc",
     "CONTRACT.md": "2f22b2a9b3ccee9846ff2a828e1c75f34752a474208869c8e8207782c402c9d8",
     "benchmarks/run-benchmark.js": "e419ee8f02b21084abaf57dc71ebf01b1b953411f77c53e8c54b6b987d3bfcf7",
     "benchmarks/fixtures/cases.js": "e25a1bcb50e15524817f18b8cd8046272f273c9b5fe1513717e8facd98308f07"
